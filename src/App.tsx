@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import elementData from './data/elements.json'
 import './App.css'
 
 const assetPath = (fileName: string) =>
@@ -6,13 +8,22 @@ const assetPath = (fileName: string) =>
 const productPath = (fileName: string) =>
   `${import.meta.env.BASE_URL}products/${fileName}`
 
-const featuredCharacters = [
-  { name: 'Carbon', symbol: 'C', number: 6, file: 'carbon.webp' },
-  { name: 'Helium', symbol: 'He', number: 2, file: 'helium.webp' },
-  { name: 'Oxygen', symbol: 'O', number: 8, file: 'oxygen.webp' },
-  { name: 'Nitrogen', symbol: 'N', number: 7, file: 'nitrogen.webp' },
-  { name: 'Sulfur', symbol: 'S', number: 16, file: 'sulfur.webp' },
-]
+const tableCharacterPath = (fileName: string) =>
+  `${import.meta.env.BASE_URL}characters/table/${fileName}`
+
+const familyClass = (family: string) => family.toLowerCase().replaceAll(' ', '-')
+
+type ElementData = (typeof elementData)[number]
+
+const elementByPosition = new Map(
+  elementData.map((element) => [`${element.period}-${element.group}`, element]),
+)
+
+const periodicCells = Array.from({ length: 9 * 18 }, (_, index) => {
+  const period = Math.floor(index / 18) + 1
+  const group = (index % 18) + 1
+  return { period, group, element: elementByPosition.get(`${period}-${group}`) }
+})
 
 function Wordmark() {
   return (
@@ -29,6 +40,26 @@ function Wordmark() {
 }
 
 function App() {
+  const [selectedElement, setSelectedElement] = useState<ElementData | null>(null)
+  const [characterView, setCharacterView] = useState<'table' | 'list'>('table')
+
+  useEffect(() => {
+    if (!selectedElement) return
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedElement(null)
+    }
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', closeOnEscape)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener('keydown', closeOnEscape)
+    }
+  }, [selectedElement])
+
   return (
     <div className="site-shell" id="top">
       <header className="site-header">
@@ -214,24 +245,126 @@ function App() {
               <h2 id="characters-heading">Every element has a story to tell.</h2>
             </div>
             <p>
-              Explore a preview of the personalities that turn chemistry facts
-              into characters worth remembering.
+              Explore the Chemtoons periodic table. Select any character to open
+              a closer look at their chemistry family, atomic mass, and card-game fact.
             </p>
           </div>
 
-          <div className="character-preview-list">
-            {featuredCharacters.map((character) => (
-              <article className="character-preview" key={character.name}>
-                <span className="character-preview__number">{character.number}</span>
-                <img src={assetPath(character.file)} alt={`${character.name} Chemtoon character`} loading="lazy" />
-                <div>
-                  <strong>{character.symbol}</strong>
-                  <span>{character.name}</span>
+          <div className="periodic-explorer">
+            <div className="character-browser-controls" role="tablist" aria-label="Character browser view">
+              <button
+                className={`character-browser-controls__button${characterView === 'table' ? ' is-active' : ''}`}
+                type="button"
+                role="tab"
+                aria-selected={characterView === 'table'}
+                onClick={() => setCharacterView('table')}
+              >
+                Periodic table
+              </button>
+              <button
+                className={`character-browser-controls__button${characterView === 'list' ? ' is-active' : ''}`}
+                type="button"
+                role="tab"
+                aria-selected={characterView === 'list'}
+                onClick={() => setCharacterView('list')}
+              >
+                Browse all
+              </button>
+            </div>
+
+            <div className={`periodic-table-panel${characterView === 'list' ? ' is-hidden' : ''}`}>
+              <p className="periodic-table-hint"><span aria-hidden="true">↔</span> Swipe to explore the table</p>
+              <div className="periodic-table-wrap" tabIndex={0} aria-label="Interactive periodic table">
+                <div className="periodic-table" role="grid" aria-label="Chemtoons periodic table">
+                  {periodicCells.map(({ period, group, element }) => (
+                    <div
+                      className={`periodic-cell${element ? '' : ' periodic-cell--empty'}`}
+                      key={`${period}-${group}`}
+                      style={{ gridColumn: group, gridRow: period }}
+                      role="gridcell"
+                    >
+                      {element ? (
+                        <button
+                          className={`element-tile element-tile--${familyClass(element.family)}${selectedElement?.atomicNumber === element.atomicNumber ? ' is-selected' : ''}`}
+                          type="button"
+                          onClick={() => setSelectedElement(element)}
+                          aria-label={`Explore ${element.name}, ${element.symbol}`}
+                          aria-pressed={selectedElement?.atomicNumber === element.atomicNumber}
+                        >
+                          <span className="element-tile__number">{element.atomicNumber}</span>
+                          <span className="element-tile__symbol">{element.symbol}</span>
+                          <img src={tableCharacterPath(element.image)} alt="" loading="lazy" />
+                          <span className="element-tile__name">{element.name}</span>
+                        </button>
+                      ) : null}
+                    </div>
+                  ))}
                 </div>
-              </article>
-            ))}
+              </div>
+            </div>
+
+            <div className={`mobile-element-list${characterView === 'list' ? ' is-visible' : ''}`} aria-label="Browse all Chemtoons elements">
+              {elementData.map((element) => (
+                <button
+                  className={`mobile-element-list__item mobile-element-list__item--${familyClass(element.family)}`}
+                  type="button"
+                  key={element.atomicNumber}
+                  onClick={() => setSelectedElement(element)}
+                  aria-label={`Explore ${element.name}, ${element.symbol}`}
+                >
+                  <span className="mobile-element-list__number">{element.atomicNumber}</span>
+                  <span className="mobile-element-list__symbol">{element.symbol}</span>
+                  <span className="mobile-element-list__copy">
+                    <strong>{element.name}</strong>
+                    <small>{element.family}</small>
+                  </span>
+                  <img src={tableCharacterPath(element.image)} alt="" loading="lazy" />
+                </button>
+              ))}
+            </div>
           </div>
-          <p className="section-note">A full interactive periodic table is coming next.</p>
+
+          {selectedElement ? (
+            <div
+              className="element-modal"
+              role="presentation"
+              onClick={(event) => {
+                if (event.target === event.currentTarget) setSelectedElement(null)
+              }}
+            >
+              <aside
+                className={`element-detail element-detail--${selectedElement.family.toLowerCase().replaceAll(' ', '-')}`}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="element-detail-title"
+                aria-describedby="element-detail-fact"
+              >
+                <button
+                  className="element-modal__close"
+                  type="button"
+                  onClick={() => setSelectedElement(null)}
+                  aria-label="Close element details"
+                  autoFocus
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+                <div className="element-detail__art">
+                  <img src={tableCharacterPath(selectedElement.image)} alt={`${selectedElement.name} Chemtoon character`} />
+                  <span className="element-detail__badge">{selectedElement.symbol}</span>
+                </div>
+                <div className="element-detail__content">
+                  <p className="element-detail__eyebrow">Element {selectedElement.atomicNumber}</p>
+                  <h3 id="element-detail-title">{selectedElement.name}</h3>
+                  <div className="element-detail__stats">
+                    <span><small>Family</small><strong>{selectedElement.family}</strong></span>
+                    <span><small>Atomic mass</small><strong>{selectedElement.atomicWeight}</strong></span>
+                  </div>
+                  <p className="element-detail__fact" id="element-detail-fact">“{selectedElement.speech}”</p>
+                  {selectedElement.radioactive ? <span className="element-detail__note">Radioactive element</span> : null}
+                </div>
+              </aside>
+            </div>
+          ) : null}
         </section>
 
         <section className="story-section" id="story" aria-labelledby="story-heading">
