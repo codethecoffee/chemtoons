@@ -3,6 +3,9 @@ import './App.css'
 const assetPath = (fileName: string) =>
   `${import.meta.env.BASE_URL}characters/featured/${fileName}`
 
+const productPath = (fileName: string) =>
+  `${import.meta.env.BASE_URL}products/${fileName}`
+
 const featuredCharacters = [
   { name: 'Carbon', symbol: 'C', number: 6, file: 'carbon.webp' },
   { name: 'Helium', symbol: 'He', number: 2, file: 'helium.webp' },
@@ -125,38 +128,81 @@ function App() {
           </div>
         </section>
 
-        <section className="brand-promise" aria-label="What Chemtoons offers">
-          <p>Science is serious. Learning it doesn’t have to feel that way.</p>
-          <div className="promise-list">
-            <span><strong>01</strong> Play together</span>
-            <span><strong>02</strong> Discover naturally</span>
-            <span><strong>03</strong> Stay curious</span>
-          </div>
-        </section>
-
         <section className="section section--products" id="products" aria-labelledby="products-heading">
           <div className="section-heading">
             <p className="eyebrow">Choose your adventure</p>
             <h2 id="products-heading">A little chemistry for every kind of learner.</h2>
           </div>
-          <div className="product-preview-grid">
-            <article className="product-preview product-preview--game">
-              <p className="product-preview__number">01</p>
-              <div>
-                <p className="product-preview__type">For the game table</p>
-                <h3>The Chemtoons card game</h3>
-                <p>Collect a colorful cast and discover surprising connections between the elements.</p>
+          <div className="product-showcase">
+            <article className="product-feature product-feature--game">
+              <div className="product-feature__visual product-feature__visual--game">
+                <div className="game-card-art">
+                  <img
+                    src={productPath('card-overview.webp')}
+                    alt="An annotated Chemtoons Radium game card"
+                  />
+                </div>
+                <span className="visual-sticker visual-sticker--players">2–10 players</span>
+                <span className="visual-sticker visual-sticker--ages">Ages 8+</span>
               </div>
-              <span className="product-preview__status">Coming soon</span>
+
+              <div className="product-feature__content">
+                <p className="product-feature__kicker"><span>01</span> For the game table</p>
+                <h3>A card game where chemistry is the strategy.</h3>
+                <p className="product-feature__lede">
+                  Choose an element, reveal together, pass your hand, and build a
+                  collection that scores through the surprising ways elements
+                  relate to one another.
+                </p>
+                <ul className="feature-list">
+                  <li><strong>Easy to enter</strong> Start with four simple ways to score.</li>
+                  <li><strong>Room to grow</strong> Add advanced rules as your table gets curious.</li>
+                  <li><strong>Learn by playing</strong> Every decision uses real element properties.</li>
+                </ul>
+                <span className="button button--product-muted" role="status">
+                  Available to buy soon
+                </span>
+              </div>
             </article>
-            <article className="product-preview product-preview--worksheets">
-              <p className="product-preview__number">02</p>
-              <div>
-                <p className="product-preview__type">For the classroom</p>
-                <h3>Character-led worksheets</h3>
-                <p>Give young scientists a friendly first introduction to the periodic table.</p>
+
+            <article className="product-feature product-feature--worksheets">
+              <div className="product-feature__content">
+                <p className="product-feature__kicker"><span>02</span> For the classroom</p>
+                <h3>Research it. Draw it. Make an element your own.</h3>
+                <p className="product-feature__lede">
+                  Chemtoons worksheets pair scientific research with creative
+                  character design, helping students make periodic-table facts
+                  more personal—and more memorable.
+                </p>
+                <ul className="feature-list">
+                  <li><strong>Science meets art</strong> Turn researched properties into visual ideas.</li>
+                  <li><strong>Ready for class</strong> Start with activities for the first five elements.</li>
+                  <li><strong>More on the way</strong> Free and paid classroom resources will keep growing.</li>
+                </ul>
+                <a
+                  className="button button--product"
+                  href="https://www.teacherspayteachers.com/Product/Cartoon-Periodic-Table-First-5-Elements-Cartoon-Character-Worksheets-H-to-B-3240664"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Browse the worksheets <span aria-hidden="true">↗</span>
+                </a>
               </div>
-              <span className="product-preview__status">Available now</span>
+
+              <div className="product-feature__visual product-feature__visual--worksheets">
+                <div className="worksheet-paper worksheet-paper--back" aria-hidden="true" />
+                <div className="worksheet-paper worksheet-paper--front">
+                  <span className="worksheet-paper__label">Classroom preview</span>
+                  <img
+                    src={productPath('worksheets-preview.jpg')}
+                    alt="Preview of a Hydrogen Chemtoons classroom worksheet"
+                  />
+                  <div className="worksheet-paper__lines" aria-hidden="true">
+                    <span /><span /><span />
+                  </div>
+                </div>
+                <span className="visual-sticker visual-sticker--creative">Science + creativity</span>
+              </div>
             </article>
           </div>
         </section>
@@ -185,26 +231,91 @@ function App() {
               </article>
             ))}
           </div>
-          <p className="section-note">The interactive periodic table arrives in a dedicated milestone.</p>
+          <p className="section-note">A full interactive periodic table is coming next.</p>
         </section>
 
-        <section className="story-preview" id="story" aria-labelledby="story-heading">
-          <p className="eyebrow">The story behind the science</p>
-          <blockquote id="story-heading">
-            “What if someone’s first introduction to chemistry felt less scary—and a lot more fun?”
-          </blockquote>
-          <p>
-            Chemtoons began with Suzy Lee’s love of chemistry and illustration,
-            then grew into a game when Barry McNamara saw a whole new way for
-            the characters to come to life.
-          </p>
+        <section className="story-section" id="story" aria-labelledby="story-heading">
+          <div className="story-section__intro">
+            <p className="eyebrow">The story behind the science</p>
+            <h2 id="story-heading">A favorite subject became a cast of characters.</h2>
+            <p>
+              Chemtoons grew from a love of chemistry theory, illustration,
+              playful learning—and one wonderfully coincidental project name.
+            </p>
+          </div>
+
+          <div className="story-chapters">
+            <article className="story-chapter">
+              <span className="story-chapter__marker">01</span>
+              <div>
+                <h3>Drawn from curiosity</h3>
+                <p>
+                  Chemistry was Suzy Lee’s favorite subject in high school, so
+                  she began illustrating the elements as people with distinct
+                  personalities. At university, she realized she loved the
+                  theory more than practical lab work and found her professional
+                  home in computer science—but the characters stayed with her.
+                </p>
+              </div>
+            </article>
+
+            <article className="story-chapter">
+              <span className="story-chapter__marker">02</span>
+              <div>
+                <h3>A project called “Elements”</h3>
+                <p>
+                  Suzy and Barry McNamara met while collaborating at Google on a
+                  project that, entirely by coincidence, was called “Elements.”
+                  It had nothing to do with chemistry, but Suzy’s team
+                  introduction about her cartoon periodic table made a lasting
+                  impression on Barry.
+                </p>
+              </div>
+            </article>
+
+            <article className="story-chapter">
+              <span className="story-chapter__marker">03</span>
+              <div>
+                <h3>From wedding favor to game night</h3>
+                <p>
+                  Years later, while the two avid makers were brainstorming
+                  wedding favors, Barry had an idea: turn the element characters
+                  into a real card game. Together, Suzy and Barry designed a game
+                  that makes genuine chemistry part of the fun.
+                </p>
+              </div>
+            </article>
+          </div>
+
+          <div className="story-belief">
+            <p className="story-belief__label">Why Chemtoons exists</p>
+            <blockquote>
+              “A friendlier way to meet the elements.”
+            </blockquote>
+            <div className="founder-links" aria-label="Chemtoons founders">
+              <a href="https://www.linkedin.com/in/suzy-lee/" target="_blank" rel="noreferrer">
+                <span className="founder-symbol founder-symbol--suzy">S</span>
+                <span><strong>Suzy Lee</strong><small>Creator & illustrator · LinkedIn ↗</small></span>
+              </a>
+              <a href="https://www.linkedin.com/in/barryam3/" target="_blank" rel="noreferrer">
+                <span className="founder-symbol founder-symbol--barry">B</span>
+                <span><strong>Barry McNamara</strong><small>Game co-creator · LinkedIn ↗</small></span>
+              </a>
+            </div>
+          </div>
         </section>
       </main>
 
       <footer className="site-footer">
         <Wordmark />
         <p>Making science feel a little more human.</p>
-        <p className="site-footer__legal">© 2026 Suzy Lee and Barry McNamara. All rights reserved.</p>
+        <div className="site-footer__end">
+          <div className="site-footer__links">
+            <a href="https://www.linkedin.com/in/suzy-lee/" target="_blank" rel="noreferrer">Suzy</a>
+            <a href="https://www.linkedin.com/in/barryam3/" target="_blank" rel="noreferrer">Barry</a>
+          </div>
+          <p className="site-footer__legal">© 2026 Suzy Lee and Barry McNamara. All rights reserved.</p>
+        </div>
       </footer>
     </div>
   )
