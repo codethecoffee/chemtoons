@@ -71,11 +71,9 @@ function App() {
           <a href="#products">Products</a>
           <a href="#characters">Characters</a>
           <a href="#story">Our story</a>
+          <a href="#contact">Contact</a>
         </nav>
 
-        <a className="header-cta" href="#products">
-          Explore
-        </a>
       </header>
 
       <main>
@@ -268,7 +266,7 @@ function App() {
                 aria-selected={characterView === 'list'}
                 onClick={() => setCharacterView('list')}
               >
-                Browse all
+                List view
               </button>
             </div>
 
@@ -303,7 +301,7 @@ function App() {
               </div>
             </div>
 
-            <div className={`mobile-element-list${characterView === 'list' ? ' is-visible' : ''}`} aria-label="Browse all Chemtoons elements">
+            <div className={`mobile-element-list${characterView === 'list' ? ' is-visible' : ''}`} aria-label="List view of all Chemtoons elements">
               {elementData.map((element) => (
                 <button
                   className={`mobile-element-list__item mobile-element-list__item--${familyClass(element.family)}`}
@@ -369,12 +367,42 @@ function App() {
 
         <section className="story-section" id="story" aria-labelledby="story-heading">
           <div className="story-section__intro">
-            <p className="eyebrow">The story behind the science</p>
-            <h2 id="story-heading">A favorite subject became a cast of characters.</h2>
+            <p className="eyebrow">Story behind the science</p>
+            <h2 id="story-heading">Chemistry got a little more human.</h2>
+            <p className="story-section__mission">Chemtoons exists to make science feel less intimidating, more human, and worth exploring.</p>
             <p>
               Chemtoons grew from a love of chemistry theory, illustration,
               playful learning—and one wonderfully coincidental project name.
             </p>
+          </div>
+
+          <div className="story-timeline">
+            <article className="story-timeline__item story-timeline__item--curiosity">
+              <div className="story-timeline__marker" aria-hidden="true"><span>01</span><i>✦</i></div>
+              <div className="story-timeline__content">
+                <span className="story-timeline__number">CURIOSITY</span>
+                <h3>Drawn from curiosity</h3>
+                <p>Suzy turned a love of chemistry theory into a cast of characters with big personalities.</p>
+              </div>
+            </article>
+
+            <article className="story-timeline__item story-timeline__item--coincidence">
+              <div className="story-timeline__marker" aria-hidden="true"><span>02</span><i>↗</i></div>
+              <div className="story-timeline__content">
+                <span className="story-timeline__number">COINCIDENCE</span>
+                <h3>A project called “Elements”</h3>
+                <p>Suzy and Barry met at Google on a project with the same name. Chemistry had already made an entrance.</p>
+              </div>
+            </article>
+
+            <article className="story-timeline__item story-timeline__item--game-night">
+              <div className="story-timeline__marker" aria-hidden="true"><span>03</span><i>✚</i></div>
+              <div className="story-timeline__content">
+                <span className="story-timeline__number">GAME NIGHT</span>
+                <h3>From wedding favor to game night</h3>
+                <p>Barry’s card-game idea turned the characters into a playful way to meet the elements.</p>
+              </div>
+            </article>
           </div>
 
           <div className="story-chapters">
@@ -435,6 +463,29 @@ function App() {
                 <span><strong>Barry McNamara</strong><small>Game co-creator · LinkedIn ↗</small></span>
               </a>
             </div>
+          </div>
+        </section>
+
+        <section className="contact-section" id="contact" aria-labelledby="contact-heading">
+          <div className="contact-section__intro">
+            <p className="eyebrow">Contact us</p>
+            <h2 id="contact-heading">Come say hello.</h2>
+            <p>
+              We’re always happy to hear from curious humans, educators, and fellow game lovers.
+            </p>
+            <a className="contact-email" href="mailto:chemtoonsofficial@gmail.com">
+              chemtoonsofficial@gmail.com
+            </a>
+          </div>
+          <div className="founder-links" aria-label="Chemtoons founders">
+            <a href="https://www.linkedin.com/in/suzy-lee/" target="_blank" rel="noreferrer">
+              <span className="founder-symbol founder-symbol--suzy">S</span>
+              <span><strong>Suzy Lee</strong><small>Creator & illustrator · LinkedIn ↗</small></span>
+            </a>
+            <a href="https://www.linkedin.com/in/barryam3/" target="_blank" rel="noreferrer">
+              <span className="founder-symbol founder-symbol--barry">B</span>
+              <span><strong>Barry McNamara</strong><small>Game co-creator · LinkedIn ↗</small></span>
+            </a>
           </div>
         </section>
       </main>
