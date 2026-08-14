@@ -45,6 +45,18 @@ npm run build
 
 `npm run lint` checks for common code problems. `npm run build` checks TypeScript and creates the optimized static website in `dist/`.
 
+## Publish with GitHub Pages
+
+The repository includes a GitHub Actions workflow at `.github/workflows/deploy-pages.yml`.
+After these changes are merged into `main`:
+
+1. Open the repository on GitHub and choose **Settings → Pages**.
+2. Set **Build and deployment → Source** to **GitHub Actions**.
+3. Push a change to `main` (or run the workflow manually from the **Actions** tab).
+4. GitHub will build the site and publish the generated `dist/` folder.
+
+When `chemtoons.com` is ready, we can connect it from the same Pages settings without changing the site code.
+
 ## Project plan
 
 The staged release plan and key product decisions are documented in [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md).
