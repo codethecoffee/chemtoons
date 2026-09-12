@@ -10,7 +10,14 @@ const familyClass = (family: string) =>
 
 export function PeriodicExplorer() {
   const [selectedElement, setSelectedElement] = useState<ElementData | null>(null)
-  const [view, setView] = useState<'table' | 'list'>('table')
+  const [view, setView] = useState<'table' | 'list'>(() => (
+    typeof window !== 'undefined' &&
+    window.matchMedia('(orientation: landscape)').matches &&
+    window.innerWidth < 760
+      ? 'list'
+      : 'table'
+  ))
+  const choseView = useRef(false)
   const dialogRef = useRef<HTMLElement>(null)
   const previousFocus = useRef<HTMLElement | null>(null)
 
@@ -32,6 +39,21 @@ export function PeriodicExplorer() {
   }
 
   const closeElement = () => setSelectedElement(null)
+
+  useEffect(() => {
+    const landscapeQuery = window.matchMedia('(orientation: landscape)')
+    const updateViewForOrientation = () => {
+      if (choseView.current) return
+      setView(landscapeQuery.matches && window.innerWidth < 760 ? 'list' : 'table')
+    }
+
+    landscapeQuery.addEventListener('change', updateViewForOrientation)
+    window.addEventListener('resize', updateViewForOrientation)
+    return () => {
+      landscapeQuery.removeEventListener('change', updateViewForOrientation)
+      window.removeEventListener('resize', updateViewForOrientation)
+    }
+  }, [])
 
   useEffect(() => {
     if (!selectedElement) return
@@ -88,10 +110,10 @@ export function PeriodicExplorer() {
 
       <div className={styles.explorer}>
         <div className={styles.controls} role="tablist" aria-label="Character browser view">
-          <button type="button" role="tab" aria-selected={view === 'table'} className={view === 'table' ? styles.active : undefined} onClick={() => setView('table')}>
+          <button type="button" role="tab" aria-selected={view === 'table'} className={view === 'table' ? styles.active : undefined} onClick={() => { choseView.current = true; setView('table') }}>
             Periodic table
           </button>
-          <button type="button" role="tab" aria-selected={view === 'list'} className={view === 'list' ? styles.active : undefined} onClick={() => setView('list')}>
+          <button type="button" role="tab" aria-selected={view === 'list'} className={view === 'list' ? styles.active : undefined} onClick={() => { choseView.current = true; setView('list') }}>
             A–Z list
           </button>
         </div>

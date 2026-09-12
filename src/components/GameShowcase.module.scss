@@ -312,7 +312,9 @@
   .cardFan {
     justify-content: flex-start;
     overflow-x: auto;
+    overflow-y: hidden;
     padding-inline: 30px;
+    overscroll-behavior-x: contain;
 
     img {
       flex: 0 0 190px;

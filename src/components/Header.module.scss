@@ -56,11 +56,20 @@
   .header {
     min-height: 0;
     grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'logo cta'
+      'nav nav';
     gap: 16px 24px;
     padding-block: 18px 14px;
   }
 
+  .logo {
+    grid-area: logo;
+    min-width: 0;
+  }
+
   .nav {
+    grid-area: nav;
     grid-column: 1 / -1;
     gap: 22px;
     overflow-x: auto;
@@ -75,6 +84,10 @@
 
   .logo {
     width: 210px;
+  }
+
+  .cta {
+    grid-area: cta;
   }
 }
 

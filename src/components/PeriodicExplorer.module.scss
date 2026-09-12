@@ -159,8 +159,12 @@
 
 .list {
   display: grid;
+  max-height: min(680px, 65vh);
+  overflow-y: auto;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
+  padding: 4px;
+  overscroll-behavior-y: contain;
 }
 
 .listItem {
@@ -380,6 +384,16 @@
 
   .dialogCopy {
     padding: 38px 28px 30px;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 650px) {
+  .table {
+    width: min(100%, 1080px);
+    min-width: 680px;
+    grid-template-columns: repeat(18, minmax(0, 1fr));
+    grid-template-rows: repeat(9, clamp(44px, 8vw, 68px));
+    gap: clamp(3px, 0.8vw, 8px);
   }
 }
 
