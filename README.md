@@ -57,10 +57,6 @@ After these changes are merged into `main`:
 
 When `chemtoons.com` is ready, we can connect it from the same Pages settings without changing the site code.
 
-## Project plan
-
-The staged release plan and key product decisions are documented in [docs/PROJECT_PLAN.md](docs/PROJECT_PLAN.md).
-
 ## Copyright and permissions
 
 This is a public repository, but it is **not an open-source project**. No open-source license is granted.
