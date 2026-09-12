@@ -1,0 +1,94 @@
+@use '../styles/tokens' as *;
+
+.header {
+  @include content-width;
+  position: relative;
+  z-index: 20;
+  display: grid;
+  min-height: 94px;
+  grid-template-columns: minmax(180px, 1fr) auto minmax(150px, 1fr);
+  align-items: center;
+  gap: 28px;
+  border-bottom: 2px solid $ink;
+}
+
+.logo {
+  width: min(260px, 100%);
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.6vw, 34px);
+
+  a {
+    padding-block: 10px;
+    font-size: 0.92rem;
+    font-weight: 800;
+    text-decoration-thickness: 2px;
+    text-decoration-color: transparent;
+    text-underline-offset: 6px;
+
+    &:hover {
+      text-decoration-color: $ink;
+    }
+  }
+}
+
+.cta {
+  @include ink-border;
+  @include card-shadow(4px);
+  justify-self: end;
+  padding: 11px 18px;
+  border-radius: 5px;
+  background: $yellow;
+  font-size: 0.9rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+@media (max-width: 860px) {
+  .header {
+    min-height: 0;
+    grid-template-columns: 1fr auto;
+    gap: 16px 24px;
+    padding-block: 18px 14px;
+  }
+
+  .nav {
+    grid-column: 1 / -1;
+    gap: 22px;
+    overflow-x: auto;
+    padding-bottom: 3px;
+
+    a {
+      flex: 0 0 auto;
+      padding-block: 4px;
+      font-size: 0.82rem;
+    }
+  }
+
+  .logo {
+    width: 210px;
+  }
+}
+
+@media (max-width: 440px) {
+  .header {
+    gap: 14px;
+  }
+
+  .logo {
+    width: 170px;
+  }
+
+  .cta {
+    padding: 9px 12px;
+    font-size: 0.78rem;
+  }
+}

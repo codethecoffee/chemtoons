@@ -20,6 +20,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.4",
     "oxlint": "^1.75.0",
+    "sass": "^1.104.1",
     "typescript": "~6.0.2",
     "vite": "^8.2.0"
   }

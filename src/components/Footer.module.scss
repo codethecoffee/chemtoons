@@ -1,0 +1,76 @@
+@use '../styles/tokens' as *;
+
+.footer {
+  @include content-width;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px 80px;
+  padding-block: 75px 45px;
+}
+
+.brand {
+  img {
+    width: min(320px, 100%);
+  }
+
+  p {
+    max-width: 500px;
+    margin: 24px 0 0;
+    font-size: 0.92rem;
+  }
+}
+
+.contact {
+  justify-self: end;
+
+  > p {
+    margin-bottom: 6px;
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+
+  > a {
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    font-weight: 900;
+  }
+
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 24px;
+
+    a {
+      font-size: 0.84rem;
+      font-weight: 800;
+    }
+  }
+}
+
+.legal {
+  display: flex;
+  grid-column: 1 / -1;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 24px;
+  border-top: 2px solid $ink;
+
+  p {
+    margin: 0;
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 700px) {
+  .footer {
+    grid-template-columns: 1fr;
+  }
+
+  .contact {
+    justify-self: start;
+  }
+
+  .legal {
+    flex-direction: column;
+  }
+}

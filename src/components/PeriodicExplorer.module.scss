@@ -1,0 +1,398 @@
+@use '../styles/tokens' as *;
+
+@mixin family-colors {
+  &.actinide { background: $ice; }
+  &.alkali-metal { background: $mint; }
+  &.alkaline-earth-metal { background: $aqua; }
+  &.halogen { background: $rose; }
+  &.lanthanide { background: $pale-blue; }
+  &.metal { background: $purple; }
+  &.metalloid { background: $lavender; }
+  &.noble-gas { background: $blush; }
+  &.nonmetal { background: $pink; }
+  &.transition-metal { background: $blue; }
+}
+
+.section {
+  padding-block: clamp(80px, 11vw, 150px);
+  background: $yellow;
+}
+
+.heading,
+.explorer {
+  @include content-width;
+}
+
+.heading {
+  display: grid;
+  grid-template-columns: 1fr minmax(270px, 0.45fr);
+  gap: 50px;
+  align-items: end;
+  margin-bottom: 48px;
+
+  h2 {
+    max-width: 850px;
+    margin-bottom: 0;
+  }
+
+  > p {
+    margin-bottom: 5px;
+  }
+}
+
+.explorer {
+  @include ink-border(3px);
+  @include card-shadow(10px);
+  padding: 24px;
+  background: $paper;
+}
+
+.controls {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 22px;
+
+  button {
+    @include ink-border;
+    padding: 10px 16px;
+    border-radius: 4px;
+    background: white;
+    cursor: pointer;
+    font-size: 0.88rem;
+    font-weight: 900;
+  }
+
+  .active {
+    color: white;
+    background: $ink;
+  }
+}
+
+.tablePanel {
+  min-width: 0;
+}
+
+.swipeHint {
+  display: none;
+  margin-bottom: 12px;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  padding: 5px 5px 14px;
+}
+
+.table {
+  display: grid;
+  width: 1080px;
+  grid-template-columns: repeat(18, 52px);
+  grid-template-rows: repeat(9, 68px);
+  gap: 8px;
+}
+
+.cell,
+.emptyCell {
+  min-width: 0;
+}
+
+.tile {
+  @include ink-border(1.5px);
+  @include family-colors;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  padding: 4px;
+  border-radius: 3px;
+  color: $ink;
+  cursor: pointer;
+  transition: transform 130ms ease, box-shadow 130ms ease;
+
+  &:hover,
+  &:focus-visible {
+    z-index: 2;
+    box-shadow: 4px 4px 0 $ink;
+    transform: translate(-2px, -2px) scale(1.06);
+  }
+
+  img {
+    position: absolute;
+    inset: 17px 5px 10px;
+    width: calc(100% - 10px);
+    height: calc(100% - 27px);
+    object-fit: contain;
+  }
+}
+
+.number {
+  position: absolute;
+  z-index: 1;
+  top: 3px;
+  left: 4px;
+  font-size: 0.55rem;
+  font-weight: 800;
+}
+
+.symbol {
+  position: absolute;
+  z-index: 1;
+  top: 2px;
+  right: 4px;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.name {
+  position: absolute;
+  z-index: 1;
+  right: 1px;
+  bottom: 2px;
+  left: 1px;
+  overflow: hidden;
+  font-size: 0.42rem;
+  font-weight: 800;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.listItem {
+  @include ink-border;
+  @include family-colors;
+  display: grid;
+  min-height: 92px;
+  grid-template-columns: 48px 1fr 60px;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 8px;
+  border-radius: 4px;
+  color: $ink;
+  cursor: pointer;
+  text-align: left;
+
+  > span:nth-child(2) {
+    min-width: 0;
+  }
+
+  strong,
+  small {
+    display: block;
+  }
+
+  strong {
+    overflow: hidden;
+    font-size: 0.83rem;
+    text-overflow: ellipsis;
+  }
+
+  small {
+    margin-top: 3px;
+    font-size: 0.62rem;
+    line-height: 1.2;
+  }
+
+  img {
+    width: 60px;
+    height: 75px;
+    object-fit: contain;
+  }
+}
+
+.listSymbol {
+  font-size: 1.55rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.backdrop {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  overflow-y: auto;
+  place-items: center;
+  padding: 24px;
+  background: rgba($ink, 0.78);
+}
+
+.dialog {
+  @include family-colors;
+  @include ink-border(3px);
+  @include card-shadow(10px);
+  position: relative;
+  display: grid;
+  width: min(850px, 100%);
+  grid-template-columns: 0.8fr 1.2fr;
+  overflow: hidden;
+  background: white;
+}
+
+.close {
+  @include ink-border;
+  position: absolute;
+  z-index: 2;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.dialogArt {
+  position: relative;
+  display: grid;
+  min-height: 490px;
+  place-items: center;
+  padding: 42px 26px 24px;
+  border-right: 3px solid $ink;
+
+  img {
+    width: 100%;
+    height: 380px;
+    object-fit: contain;
+  }
+
+  > span {
+    @include ink-border;
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    display: grid;
+    width: 74px;
+    height: 74px;
+    place-items: center;
+    background: white;
+    font-size: 2rem;
+    font-weight: 900;
+  }
+}
+
+.dialogCopy {
+  padding: 70px 50px 46px;
+  background: rgba(white, 0.9);
+
+  > p {
+    margin-bottom: 4px;
+    font-size: 0.78rem;
+    font-weight: 900;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    margin-bottom: 30px;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+  }
+
+  dl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 32px;
+    border-block: 2px solid $ink;
+
+    div {
+      padding-block: 13px;
+
+      & + div {
+        padding-left: 20px;
+        border-left: 2px solid $ink;
+      }
+    }
+
+    dt {
+      font-size: 0.68rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    dd {
+      margin: 3px 0 0;
+      font-weight: 900;
+    }
+  }
+
+  blockquote {
+    margin-bottom: 24px;
+    font-size: 1.2rem;
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+}
+
+.radioactive {
+  @include ink-border;
+  display: inline-block;
+  padding: 5px 9px;
+  background: $yellow;
+  font-size: 0.75rem;
+  font-weight: 900;
+}
+
+@media (max-width: 1000px) {
+  .list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .heading {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .swipeHint {
+    display: block;
+  }
+
+  .list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .dialog {
+    grid-template-columns: 1fr;
+  }
+
+  .dialogArt {
+    min-height: 300px;
+    border-right: 0;
+    border-bottom: 3px solid $ink;
+
+    img {
+      height: 260px;
+    }
+  }
+
+  .dialogCopy {
+    padding: 38px 28px 30px;
+  }
+}
+
+@media (max-width: 520px) {
+  .explorer {
+    padding: 14px;
+  }
+
+  .list {
+    grid-template-columns: 1fr;
+  }
+
+  .backdrop {
+    padding: 12px;
+  }
+}
