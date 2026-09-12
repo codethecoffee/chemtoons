@@ -395,6 +395,24 @@
     grid-template-rows: repeat(9, clamp(44px, 8vw, 68px));
     gap: clamp(3px, 0.8vw, 8px);
   }
+
+  .tile {
+    padding: 3px;
+
+    img {
+      inset: 15px 3px 9px;
+      width: calc(100% - 6px);
+      height: calc(100% - 24px);
+    }
+  }
+
+  .number {
+    font-size: 0.48rem;
+  }
+
+  .symbol {
+    font-size: 0.68rem;
+  }
 }
 
 @media (max-width: 520px) {

@@ -8,14 +8,13 @@ type ElementData = (typeof elementData)[number]
 const familyClass = (family: string) =>
   family.toLowerCase().replaceAll(' ', '-')
 
+const shouldUseAlphabeticalView = () =>
+  typeof window !== 'undefined' && window.innerWidth < 760
+
 export function PeriodicExplorer() {
   const [selectedElement, setSelectedElement] = useState<ElementData | null>(null)
   const [view, setView] = useState<'table' | 'list'>(() => (
-    typeof window !== 'undefined' &&
-    window.matchMedia('(orientation: landscape)').matches &&
-    window.innerWidth < 760
-      ? 'list'
-      : 'table'
+    shouldUseAlphabeticalView() ? 'list' : 'table'
   ))
   const choseView = useRef(false)
   const dialogRef = useRef<HTMLElement>(null)
@@ -41,17 +40,14 @@ export function PeriodicExplorer() {
   const closeElement = () => setSelectedElement(null)
 
   useEffect(() => {
-    const landscapeQuery = window.matchMedia('(orientation: landscape)')
-    const updateViewForOrientation = () => {
+    const updateViewForViewport = () => {
       if (choseView.current) return
-      setView(landscapeQuery.matches && window.innerWidth < 760 ? 'list' : 'table')
+      setView(shouldUseAlphabeticalView() ? 'list' : 'table')
     }
 
-    landscapeQuery.addEventListener('change', updateViewForOrientation)
-    window.addEventListener('resize', updateViewForOrientation)
+    window.addEventListener('resize', updateViewForViewport)
     return () => {
-      landscapeQuery.removeEventListener('change', updateViewForOrientation)
-      window.removeEventListener('resize', updateViewForOrientation)
+      window.removeEventListener('resize', updateViewForViewport)
     }
   }, [])
 
