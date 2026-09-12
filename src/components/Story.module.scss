@@ -1,0 +1,200 @@
+@use '../styles/tokens' as *;
+
+.story {
+  @include content-width;
+  padding-block: clamp(90px, 12vw, 160px);
+}
+
+.heading {
+  max-width: 900px;
+  margin-bottom: 80px;
+
+  h2 {
+    margin-bottom: 0;
+  }
+}
+
+.chapters {
+  display: grid;
+  gap: clamp(70px, 10vw, 130px);
+}
+
+.chapter {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.8fr) minmax(280px, 1.2fr);
+  align-items: center;
+  gap: clamp(40px, 8vw, 120px);
+  min-height: 520px;
+  padding: clamp(36px, 6vw, 76px);
+  border: 3px solid $ink;
+  background: $mint;
+  box-shadow: 10px 10px 0 $ink;
+}
+
+.chapterReverse {
+  grid-template-columns: 1.1fr 0.9fr;
+  background: $lavender;
+}
+
+.chapterCopy,
+.weddingCopy {
+  > span {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    margin-bottom: 28px;
+    place-items: center;
+    border: 2px solid $ink;
+    border-radius: 50%;
+    background: $yellow;
+    font-weight: 900;
+  }
+
+  h3 {
+    margin-bottom: 18px;
+    font-size: clamp(2rem, 4vw, 3.7rem);
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.characterArt {
+  width: min(430px, 100%);
+  max-height: 470px;
+  justify-self: center;
+  object-fit: contain;
+  filter: drop-shadow(7px 9px 0 rgba($ink, 0.2));
+  transform: rotate(4deg);
+}
+
+.photoFrame {
+  margin: 0;
+  padding: 12px 12px 8px;
+  border: 2px solid $ink;
+  background: white;
+  box-shadow: 7px 7px 0 $ink;
+  transform: rotate(-2deg);
+
+  img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  figcaption {
+    padding: 9px 3px 2px;
+    font-size: 0.8rem;
+    font-style: italic;
+    font-weight: 700;
+  }
+}
+
+.weddingChapter {
+  display: grid;
+  gap: 58px;
+}
+
+.weddingCopy {
+  display: grid;
+  grid-template-columns: 60px minmax(260px, 0.55fr) minmax(300px, 1fr);
+  gap: 30px;
+  align-items: start;
+
+  > span {
+    margin-bottom: 0;
+  }
+
+  h3 {
+    margin: 0;
+  }
+
+  p {
+    margin-top: 4px;
+  }
+}
+
+.weddingPhotos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+
+  figure {
+    margin: 0;
+    padding: 12px 12px 8px;
+    border: 2px solid $ink;
+    background: white;
+    box-shadow: 7px 7px 0 $ink;
+
+    &:first-child {
+      transform: rotate(-1deg);
+    }
+
+    &:last-child {
+      transform: rotate(1deg);
+    }
+  }
+
+  img {
+    width: 100%;
+    height: clamp(300px, 32vw, 460px);
+    object-fit: cover;
+  }
+
+  figure:first-child img {
+    object-position: center 38%;
+  }
+
+  figcaption {
+    padding: 10px 2px 2px;
+    font-size: 0.78rem;
+    font-weight: 700;
+
+    a {
+      text-decoration-thickness: 2px;
+      text-underline-offset: 3px;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .chapter,
+  .chapterReverse {
+    grid-template-columns: 1fr;
+  }
+
+  .chapterReverse .photoFrame {
+    order: 2;
+  }
+
+  .weddingCopy {
+    grid-template-columns: 54px 1fr;
+
+    p {
+      grid-column: 2;
+    }
+  }
+
+  .weddingPhotos {
+    grid-template-columns: 1fr;
+
+    img {
+      height: min(120vw, 650px);
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .chapter {
+    padding: 28px 24px;
+  }
+
+  .weddingCopy {
+    grid-template-columns: 1fr;
+
+    p {
+      grid-column: auto;
+    }
+  }
+}

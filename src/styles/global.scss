@@ -1,0 +1,179 @@
+@use './tokens' as *;
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('/fonts/nunito-regular.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('/fonts/nunito-bold.ttf') format('truetype');
+  font-style: normal;
+  font-weight: 700 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Nunito';
+  src: url('/fonts/nunito-italic.ttf') format('truetype');
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+:root {
+  color: $ink;
+  background: $paper;
+  font-family: 'Nunito', 'Trebuchet MS', sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background-color: $paper;
+  background-image: radial-gradient(rgba($ink, 0.14) 0.8px, transparent 0.8px);
+  background-size: 18px 18px;
+}
+
+body,
+button,
+a {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p,
+dl,
+dd,
+figure,
+blockquote {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+h1 {
+  font-size: clamp(3.4rem, 7.4vw, 6.8rem);
+}
+
+h2 {
+  font-size: clamp(2.3rem, 5vw, 4.8rem);
+}
+
+h3 {
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+}
+
+p {
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+::selection {
+  color: $ink;
+  background: $yellow;
+}
+
+:focus-visible {
+  outline: 4px solid #0067b2;
+  outline-offset: 4px;
+}
+
+.section-label {
+  margin-bottom: 14px;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.button {
+  display: inline-flex;
+  min-height: 52px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 22px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 900;
+  text-decoration: none;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+
+  &:hover {
+    transform: translate(-2px, -2px);
+  }
+
+  &--dark {
+    @include ink-border;
+    @include card-shadow(5px);
+    color: white;
+    background: $ink;
+
+    &:hover {
+      box-shadow: 7px 7px 0 $yellow;
+    }
+  }
+
+  &--paper {
+    @include ink-border;
+    @include card-shadow(5px);
+    background: white;
+
+    &:hover {
+      box-shadow: 7px 7px 0 $pink;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

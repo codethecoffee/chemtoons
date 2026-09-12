@@ -1,0 +1,31 @@
+$ink: #171717;
+$paper: #fffdf8;
+$yellow: #fff244;
+$pink: #f38fa8;
+$mint: #cee4a3;
+$aqua: #87cdb0;
+$blue: #87b4d7;
+$purple: #a799cd;
+$lavender: #c0b6db;
+$rose: #f49eca;
+$pale-blue: #96dfe6;
+$ice: #caebe8;
+$blush: #ebd9df;
+$content: 1180px;
+
+@mixin content-width {
+  width: min(#{$content}, calc(100% - 48px));
+  margin-inline: auto;
+
+  @media (max-width: 640px) {
+    width: min(#{$content}, calc(100% - 28px));
+  }
+}
+
+@mixin ink-border($width: 2px) {
+  border: $width solid $ink;
+}
+
+@mixin card-shadow($offset: 7px) {
+  box-shadow: $offset $offset 0 $ink;
+}

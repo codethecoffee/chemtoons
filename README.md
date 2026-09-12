@@ -1,15 +1,15 @@
 # Chemtoons
 
-Chemtoons makes chemistry approachable through element-inspired cartoon characters, a physical card game, and classroom worksheets.
+Chemtoons is a 10–20 minute card-drafting game for 2–10 people ages 10 and up. Every card turns a real element into a character, and every scoring rule uses real chemistry.
 
-This repository contains the public website for [chemtoons.com](https://chemtoons.com). The first release is a responsive, one-page React site that will be hosted with GitHub Pages.
+This repository contains the public website for [chemtoons.com](https://chemtoons.com). It is a responsive, one-page React site hosted with GitHub Pages.
 
 ## Technology
 
 - React
 - TypeScript
 - Vite
-- CSS
+- SCSS and CSS Modules
 - GitHub Pages and GitHub Actions
 
 ## Run the site locally
