@@ -20,10 +20,6 @@ export function Footer() {
       </div>
       <div className={styles.legal}>
         <p>© 2026 Suzy Lee and Barry McNamara. All rights reserved.</p>
-        <p>
-          Wedding photography by{' '}
-          <a href={externalLinks.teDua} target="_blank" rel="noreferrer">Te Dua</a> and Rachel Cipkins.
-        </p>
       </div>
     </footer>
   )

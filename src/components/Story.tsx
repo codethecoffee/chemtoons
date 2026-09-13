@@ -57,24 +57,36 @@ export function Story() {
             <figure>
               <img src={assetUrl('site/photos/creators-at-wedding.webp')} alt="Suzy Lee and Barry McNamara holding Chemtoons cards at their wedding" loading="lazy" />
               <figcaption>
-                The creators with their wedding-favor cards. Photo by{' '}
-                <a href={externalLinks.teDua} target="_blank" rel="noreferrer">Te Dua</a>.
+                The creators with their wedding-favor cards.
+                <sup><a href="#photo-credit-1" id="photo-credit-ref-1a" aria-label="Photo credit footnote 1">1</a></sup>.
               </figcaption>
             </figure>
             <figure>
               <img src={assetUrl('site/photos/game-at-wedding.webp')} alt="Wedding guests playing Chemtoons around a decorated dinner table" loading="lazy" />
               <figcaption>
-                Chemtoons being played at the wedding. Photo by{' '}
-                <a href={externalLinks.teDua} target="_blank" rel="noreferrer">Te Dua</a>.
+                Chemtoons being played at the wedding.
+                <sup><a href="#photo-credit-1" id="photo-credit-ref-1b" aria-label="Photo credit footnote 1">1</a></sup>.
               </figcaption>
             </figure>
             <figure>
               <img src={assetUrl('site/photos/game-at-wedding-rachel.webp')} alt="Wedding guests holding Chemtoons cards while playing the game" loading="lazy" />
               <figcaption>
-                Guests drafting their cards. Photo by Rachel Cipkins.
+                Guests drafting their cards.
+                <sup><a href="#photo-credit-2" id="photo-credit-ref-2" aria-label="Photo credit footnote 2">2</a></sup>.
               </figcaption>
             </figure>
           </div>
+          <ol className={styles.photoCredits} aria-label="Photo credits">
+            <li id="photo-credit-1">
+              <a href={externalLinks.teDua} target="_blank" rel="noreferrer">Te Dua</a>.{' '}
+              <a href="#photo-credit-ref-1a" aria-label="Back to photo credit reference 1">↩</a>{' '}
+              <a href="#photo-credit-ref-1b" aria-label="Back to photo credit reference 1">↩</a>
+            </li>
+            <li id="photo-credit-2">
+              Rachel Cipkins.{' '}
+              <a href="#photo-credit-ref-2" aria-label="Back to photo credit reference 2">↩</a>
+            </li>
+          </ol>
         </article>
       </div>
     </section>
